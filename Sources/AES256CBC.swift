@@ -220,7 +220,7 @@ final public class AES256CBC {
         let keyData = key.data(using: String.Encoding.utf8)!
         let ivData = iv.data(using: String.Encoding.utf8)!
         let data = string.data(using: String.Encoding.utf8)!
-        guard let enc = try? Data(bytes: AESCipher(key: keyData.bytes,
+        guard let enc = try? Data(AESCipher(key: keyData.bytes,
                                                    iv: ivData.bytes).encrypt(bytes: data.bytes)) else {
                                                     return nil
         }
@@ -253,7 +253,7 @@ final public class AES256CBC {
     /// - Returns: an *optional string* with the decrypted data in utf8
     public class func decryptString(_ data: Data, iv: Data, key: String) -> String? {
         let keyData = key.data(using: String.Encoding.utf8)!
-        guard let decryptedData = try? Data(bytes: AESCipher(key: keyData.bytes,
+        guard let decryptedData = try? Data(AESCipher(key: keyData.bytes,
                                                    iv: iv.bytes).decrypt(bytes: data.bytes)) else {
                 return nil
         }
