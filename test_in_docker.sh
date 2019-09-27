@@ -5,14 +5,12 @@
 set -o pipefail
 
 echo ""
-echo "Running Swift 3.1 Tests in Docker Container"
+echo "Running Tests in Docker Container"
+echo "Swift 5"
 echo "================================="
-docker build -t aes256cbc .
-docker run --name aes256cbc_test --rm aes256cbc swift test
-echo "Finished tests, docker container were removed."
-echo ""
-echo "Running Swift 4.0 Tests in Docker Container"
-echo "================================="
-docker build -t aes256cbc-swift4 -f Dockerfile~swift4 .
-docker run --name aes256cbc_test --rm aes256cbc-swift4 swift test
+docker build -t aes256cbc -f Dockerfile .
+
+
+docker run --name aes256cbc_test --rm aes256cbc swift test \
+|| (set +x; echo -e "\033[0;31mTests exited with non-zero exit code\033[0m"; tput bel; exit 1)
 echo "Finished tests, docker container were removed."
